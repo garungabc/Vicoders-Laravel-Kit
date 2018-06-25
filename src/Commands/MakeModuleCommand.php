@@ -2,13 +2,15 @@
 
 namespace Vicoders\LaravelKit\Commands;
 
-use Exception;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Vicoders\LaravelKit\Support;
 
 class MakeModuleCommand extends Command
 {
+    protected $root_dir = Support::ROOT_DIR;
+
     /**
      * The name of command.
      *
@@ -49,15 +51,23 @@ class MakeModuleCommand extends Command
             if ($type != 'api' && $type != 'basic') {
                 throw new Exception("type must be basic or api");
             } else {
-                $folder = "resources/{$name}/{$type}";
+                $folder = "{$this->root_dir}/resources/{$name}/{$type}";
                 if (!is_dir($folder)) {
                     throw new Exception("{$folder} not found", 1);
                 }
 
                 $array_folder = $this->getDirContents($folder);
                 foreach ($array_folder as $value) {
-                    if (!file_exists('resources/views/vendor/option/admin.blade.php')) {
-                        copy('vendor/nf/option/resources/views/admin.blade.php', 'resources/views/vendor/option/admin.blade.php');
+                    $dest = str_replace("/vendor/vicodersvn/laravel-kit/src/resources/{$name}/{$type}", "", $value);
+                    
+                    if (!is_dir($value)) {
+                        if (!file_exists($dest)) {
+                            copy($value, $dest);
+                        }
+                    } else {
+                        if (!is_dir($dest)) {
+                            mkdir($dest, 0755, true);
+                        }
                     }
                 }
             }
@@ -66,14 +76,16 @@ class MakeModuleCommand extends Command
 
     public function getDirContents($dir, &$results = array())
     {
-        $files = scandir($dir);
+        if (is_dir($dir)) {
+            $files = scandir($dir);
 
-        foreach ($files as $key => $value) {
-            // $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
-            $path = $dir . DIRECTORY_SEPARATOR . $value;
-            if ($value != "." && $value != "..") {
-                $results[] = $path;
-                getDirContents($path, $results);
+            foreach ($files as $key => $value) {
+                // $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
+                $path = $dir . DIRECTORY_SEPARATOR . $value;
+                if ($value != "." && $value != "..") {
+                    $results[] = $path;
+                    $this->getDirContents($path, $results);
+                }
             }
         }
 
