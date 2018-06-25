@@ -1,0 +1,16 @@
+{
+    "name": "vicoders/laravel-kit",
+    "description": "Extension kit for Laravel Project",
+    "authors": [
+        {
+            "name": "Nguyen Chung",
+            "email": "nguyenchung26011992@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Vicoders\\LaravelKit\\": "src/"
+        }
+    },
+    "require": {}
+}
