@@ -5,7 +5,7 @@ namespace Vicoders\LaravelKit;
 use Illuminate\Support\ServiceProvider;
 use Vicoders\LaravelKit\Console\MakeModuleCommand;
 
-class ExtensionKitServiceProvider extends ServiceProvider
+class LaravelKitServiceProvider extends ServiceProvider
 {
     public function register()
     {
@@ -17,7 +17,7 @@ class ExtensionKitServiceProvider extends ServiceProvider
             $this->registerOptionPage();
         }
     }
-    
+
     public function registerCommand()
     {
         // Register your command here, they will be bootstrapped at console

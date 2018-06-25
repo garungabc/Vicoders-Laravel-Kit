@@ -2,7 +2,7 @@
 
 namespace Vicoders\LaravelKit;
 
-class Manager
+class LaravelKitManager
 {
     public function __construct()
     {
