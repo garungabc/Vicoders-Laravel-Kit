@@ -8,7 +8,6 @@ use App\Http\Requests\StoreCategory;
 use App\Http\Requests\UpdateCategory;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -26,7 +25,13 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
+        $per_page   = $request->has('per_page') ? (int) $request->get('per_page') : 15;
+        $categories = Category::paginate($per_page)->appends($request->except('page'));
 
+        $data = [
+            'categories' => $categories,
+        ];
+        return view('categories.index', $data);
     }
 
     /**
@@ -70,7 +75,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCategory $request, $id)
     {
         $data     = $request->validated();
         $category = $this->repository->update($data, $id);
