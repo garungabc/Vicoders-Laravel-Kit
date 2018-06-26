@@ -35,6 +35,16 @@ class CategoryController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('categories.create');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -66,6 +76,23 @@ class CategoryController extends Controller
         ];
 
         return view('categories.show', $data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $category = $this->repository->find($id);
+
+        $data = [
+            'category' => $category,
+        ];
+
+        return view('categories.edit', $data);
     }
 
     /**
