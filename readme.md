@@ -64,3 +64,24 @@ php artisan make:module post --type=basic
 ##### Create post api module 
 ```terminal
 php artisan make:module post --type=api
+```
+
+##### Create testimonial basic module 
+```terminal
+php artisan make:module testimonial --type=basic
+```
+
+##### Create testimonial api module 
+```terminal
+php artisan make:module testimonial --type=api
+```
+
+##### Create product basic module 
+```terminal
+php artisan make:module product --type=basic
+```
+
+##### Create product api module 
+```terminal
+php artisan make:module product --type=api
+```
