@@ -2,17 +2,17 @@
 
 namespace App\Transformers;
 
-use App\Entities\Category;
+use App\Entities\Testimonial;
 use League\Fractal\TransformerAbstract;
 
 /**
- * Class CategoryTransformer
+ * Class TestimonialTransformer
  * @package namespace App\Transformers;
  */
-class CategoryTransformer extends TransformerAbstract
+class TestimonialTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'parent',
+
     ];
 
     public function __construct($includes = [])
@@ -21,29 +21,23 @@ class CategoryTransformer extends TransformerAbstract
     }
 
     /**
-     * Transform the Category entity
-     * @param App\Entities\Category $model
+     * Transform the Testimonial entity
+     * @param App\Entities\Testimonial $model
      *
      * @return array
      */
-    public function transform(Category $model)
+    public function transform(Testimonial $model)
     {
         return [
             'id'         => (int) $model->id,
-            'name'       => $model->name,
-            'slug'       => $model->slug,
+            'first_name' => $model->first_name,
+            'last_name'  => $model->last_name,
+            'image'      => $model->image,
+            'content'    => $model->content,
             'order'      => (int) $model->order,
             'status'     => (int) $model->status,
-            'parent_id'  => (int) $model->parent_id,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at,
         ];
-    }
-
-    public function includeParent(Category $model)
-    {
-        if (!empty($model->parent)) {
-            return $this->item($model->parent, new CategoryTransformer);
-        }
     }
 }

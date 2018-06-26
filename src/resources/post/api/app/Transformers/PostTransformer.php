@@ -35,9 +35,9 @@ class PostTransformer extends TransformerAbstract
             'image'       => $model->image,
             'description' => $model->description,
             'content'     => $model->content,
-            'user_id'     => $model->user_id,
-            'order'       => $model->order,
-            'status'      => $model->status,
+            'user_id'     => (int) $model->user_id,
+            'order'       => (int) $model->order,
+            'status'      => (int) $model->status,
             'created_at'  => $model->created_at,
             'updated_at'  => $model->updated_at,
         ];
